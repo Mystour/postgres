@@ -1,0 +1,70 @@
+CREATE TABLE
+INSERT 0 7
+ server_version
+----------------
+ 15.2
+(1 row)
+
+ halo_pmc_list
+---------------
+
+(1 row)
+
+ halo_pmc_segment
+------------------
+ off
+(1 row)
+
+SET
+SET
+SET
+SET
+CREATE TABLE
+CREATE TABLE
+INSERT 0 10000
+INSERT 0 10000
+ANALYZE
+ANALYZE
+              QUERY PLAN
+---------------------------------------
+ Aggregate
+   ->  Hash Join
+         Hash Cond: (s.id = r.id)
+         ->  Seq Scan on pmc_s s
+               Filter: (val > 100)
+         ->  Hash
+               ->  Seq Scan on pmc_r r
+(7 rows)
+
+SET
+psql:verify.sql:29: NOTICE:  halo_pmc: missing or invalid event "missing_pmc"
+ expected_9900
+---------------
+          9900
+(1 row)
+
+     set_config
+---------------------
+ cycles,instructions
+(1 row)
+
+psql:verify.sql:33: NOTICE:  halo_pmc: private hash build cycles scaled=2292055 scheduled=100.00% raw=2292055
+psql:verify.sql:33: NOTICE:  halo_pmc: private hash build instructions scaled=9056828 scheduled=100.00% raw=9056828
+ expected_9900
+---------------
+          9900
+(1 row)
+
+SET
+psql:verify.sql:37: NOTICE:  halo_pmc: private hash tuple body RDPMC measured=10000 skipped=0
+psql:verify.sql:37: NOTICE:  halo_pmc: cycles tuple-body raw delta=4163347
+psql:verify.sql:37: NOTICE:  halo_pmc: instructions tuple-body raw delta=6232696
+psql:verify.sql:37: NOTICE:  halo_pmc: private hash build cycles scaled=6173892 scheduled=100.00% raw=6173892
+psql:verify.sql:37: NOTICE:  halo_pmc: private hash build instructions scaled=12826832 scheduled=100.00% raw=12826832
+ expected_9900
+---------------
+          9900
+(1 row)
+
+RESET
+RESET
